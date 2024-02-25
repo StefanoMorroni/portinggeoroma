@@ -1,11 +1,3 @@
-FROM tomcat:9-jdk11-openjdk AS mother
-LABEL maintainer="Alessandro Parma<alessandro.parma@geosolutionsgroup.com>"
-ARG MAPSTORE_WEBAPP_SRC="https://github.com/geosolutions-it/MapStore2/releases/latest/download/mapstore.war"
-ADD "${MAPSTORE_WEBAPP_SRC}" "/mapstore/"
-
-COPY ./docker/* /mapstore/docker/
-WORKDIR /mapstore
-
 FROM tomcat:9-jdk11-openjdk
 
 # Tomcat specific options
@@ -22,13 +14,9 @@ ENV GEOSTORE_OVR_OPT=""
 ENV JAVA_OPTS="${JAVA_OPTS} ${GEOSTORE_OVR_OPT} -Ddatadir.location=${DATA_DIR}"
 ENV TERM xterm
 
-COPY --from=mother "/mapstore/mapstore.war" "${MAPSTORE_WEBAPP_DST}/mapstore.war"
-COPY --from=mother "/mapstore/docker" "${CATALINA_BASE}/docker/"
+COPY ./product/target/mapstore.war "${CATALINA_BASE}/webapps/georoma.war"
 
 RUN mkdir -p ${DATA_DIR}
-
-
-RUN cp ${CATALINA_BASE}/docker/wait-for-postgres.sh /usr/bin/wait-for-postgres
 
 RUN apt-get update \
     && apt-get install --yes postgresql-client \
