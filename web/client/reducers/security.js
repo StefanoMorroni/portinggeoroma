@@ -13,6 +13,7 @@ import {
     CHANGE_PASSWORD_SUCCESS,
     CHANGE_PASSWORD_FAIL,
     RESET_ERROR,
+    USERINFO_SUCCESS,
     REFRESH_SUCCESS,
     SESSION_VALID,
     CHANGE_PASSWORD
@@ -56,13 +57,21 @@ function security(state = {user: null, errorCause: null}, action) {
             loginError: null
         });
     }
+    case USERINFO_SUCCESS:
+    {
+        return {
+            ...state,
+            userinfo: (state.userinfo | 0) + action.interval
+        };
+    }
     case REFRESH_SUCCESS:
     {
         const timestamp = new Date() / 1000 | 0;
         return assign({}, state, {
             token: (action.userDetails && action.userDetails.access_token),
             refresh_token: (action.userDetails && action.userDetails.refresh_token),
-            expires: (action.userDetails && action.userDetails.expires) ? timestamp + action.userDetails.expires : timestamp + 48 * 60 * 60
+            expires: (action.userDetails && action.userDetails.expires) ? timestamp + action.userDetails.expires : timestamp + 48 * 60 * 60,
+            userinfo: 0
         });
     }
     case LOGIN_FAIL:

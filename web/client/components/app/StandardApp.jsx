@@ -28,10 +28,12 @@ import isArray from 'lodash/isArray';
 
 import './appPolyfill';
 
+import Auth from './Auth';
+
 const DefaultAppLoaderComponent = () => (
     <span>
         <div className="_ms2_init_spinner _ms2_init_center"><div></div></div>
-        <div className="_ms2_init_text _ms2_init_center">Loading MapStore</div>
+        <div className="_ms2_init_text _ms2_init_center">Loading GeoRoma</div>
     </span>
 );
 
@@ -131,6 +133,9 @@ class StandardApp extends React.Component {
             if (!opts.persist) {
                 onInit(config);
             }
+
+            window.auth = new Auth(config?.sso);
+            window.auth.handleAuthentication();
         });
 
     }

@@ -110,7 +110,9 @@ class UserMenu extends React.Component {
                 tooltipId="user.login"
                 tooltipPosition={this.props.tooltipPosition}
                 {...this.props.menuProps}>
-                <MenuItem onClick={() => this.props.onShowLogin(this.props.providers)}><Glyphicon glyph="log-in" /><Message msgId="user.login"/></MenuItem>
+                <MenuItem onClick={() => window.auth.login()}>
+                    <Glyphicon glyph="log-in" /><Message msgId="user.login"/>
+                </MenuItem>
             </DropDown>);
     };
 

@@ -64,11 +64,41 @@
 
   <dependencies>
     <!-- MapStore services -->
-    <dependency>
-        <groupId>it.geosolutions.mapstore</groupId>
-        <artifactId>mapstore-services</artifactId>
-        <version>1.7-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+          <groupId>it.geosolutions.mapstore</groupId>
+          <artifactId>mapstore-services</artifactId>
+          <version>1.7-SNAPSHOT</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-rest-api</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-rest-impl</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-services-api</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-services-impl</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-security</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-persistence</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>it.geosolutions.geostore</groupId>
+                  <artifactId>geostore-model</artifactId>
+              </exclusion>
+          </exclusions>
+      </dependency>
 
     <!-- ================================================================ -->
     <!-- GeoStore modules -->
@@ -83,7 +113,7 @@
     <dependency>
       <groupId>proxy</groupId>
       <artifactId>http_proxy</artifactId>
-      <version>1.5-SNAPSHOT</version>
+      <version>0.0.2</version>
       <type>war</type>
       <scope>runtime</scope>
     </dependency>

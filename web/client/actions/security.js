@@ -28,6 +28,7 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
 export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
 export const LOGOUT = 'LOGOUT';
+export const USERINFO_SUCCESS = 'USERINFO_SUCCESS';
 export const REFRESH_SUCCESS = 'REFRESH_SUCCESS';
 export const SESSION_VALID = 'SESSION_VALID';
 
@@ -133,6 +134,13 @@ export function changePassword(user, newPassword) {
     };
 }
 
+export function userInfoSuccess(interval) {
+    return {
+        type: USERINFO_SUCCESS,
+        interval
+    };
+}
+
 export function refreshSuccess(userDetails, authProvider) {
     return {
         type: REFRESH_SUCCESS,
@@ -141,15 +149,38 @@ export function refreshSuccess(userDetails, authProvider) {
     };
 }
 
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
 export function refreshAccessToken() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         const accessToken = getToken();
         const refreshToken = getRefreshToken();
-        AuthenticationAPI.refreshToken(accessToken, refreshToken).then((response) => {
-            dispatch(refreshSuccess(response, AuthenticationAPI.authProviderName));
-        }).catch(() => {
-            dispatch(logout(null));
-        });
+        const userinfo = getState().security.userinfo | 0;
+        const accessTokenDecoded = parseJwt(accessToken);
+        let expires = getState()?.localConfig?.sso?.expires;
+        try {
+            expires = (accessTokenDecoded?.expires_in)-30000;
+        } catch(e) {
+        }
+        if (userinfo < expires) {
+            dispatch(userInfoSuccess(30000));
+        } else {
+            window.auth.refreshToken(accessToken, refreshToken)
+                .then((response) => {
+                    console.log("[STF] refreshToken completata con successo ", userinfo, response.data);
+                    dispatch(refreshSuccess(response.data, AuthenticationAPI.authProviderName));
+                }).catch(() => {
+                    console.error("[STF] refreshToken fallita, eseguo logout(null) ", userinfo);
+                    dispatch(logout(null));
+                });
+        }
     };
 }
 
