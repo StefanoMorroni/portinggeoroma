@@ -249,3 +249,102 @@
 #viewer #share-panel-dialog {
     top: -10%;
 }
+
+#livello2-dialog {
+    position: fixed;
+    top: -93px;
+    right: 30px;
+    width: 600px;
+    height: ~"calc(100% - 93px)";
+    .modal-body {
+        max-height: ~"calc(100% - 60px)";
+        overflow-y: auto;
+        .square-button {
+            height: 40px;
+            width: 43px;
+            margin: 1px;
+        }
+    }
+}
+
+#caricamentodati-dialog {
+    position: fixed;
+    top: -93px;
+    left: 5px;
+    width: 50%;
+    height: ~"calc(100% - 93px)";
+    .modal-body {
+        max-height: ~"calc(100% - 60px)";
+        overflow-y: auto;
+        .square-button {
+            height: 40px;
+            width: 43px;
+            margin: 1px;
+        }
+        .dropzone {
+            color: #31708f;
+            transition: 0.3s;
+            &:hover {
+                transform: scale(1.05);
+            }
+            border-width: 1px;
+            height: 200px;
+            width: 400px;
+            margin: auto;
+            padding: 10px;
+            border-color: #ccc;
+            border-radius: 3px;
+            background-color: white;
+            .shadow-soft;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .active {
+            transform: scale(1.05);
+        }
+        .title-header {
+            background-color: #8e001c;
+            color: white;
+            font-weight: bold;
+            height: 50px;
+            width: 800px;
+            margin: auto;
+            font-size: 18px;
+            padding: 10px;
+            .glyphicon {
+                float: right;
+            }
+        }
+        .uploads-list {
+            margin-top: 15px;
+        }
+        .uploading-file {
+            width: 90%;
+            margin: auto;
+            height: 60px;
+            padding: 20px;
+            border: solid;
+            border-color: #ccc;
+            border-radius: 2px;
+            border-width: 1px;
+            margin-top: 5px;
+            .plugin-name {
+                padding-left: 10px;
+            }
+            .glyphicon-ok {
+                color: green;
+            }
+    
+            .glyphicon-remove {
+                color: red;
+            }
+            .upload-error {
+                float: right;
+            }
+            .upload-remove {
+                float: right;
+                cursor: pointer;
+            }
+        }
+    }
+}

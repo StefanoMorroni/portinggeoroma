@@ -31,6 +31,14 @@
 // **************
 // Layout
 // **************
+#bookmark-tools button {
+    background-color: unset;
+    color: #8e001c;
+    &:hover {
+        background-color: #e6e6e6;
+    }
+}
+
 #bookmark-list {
     .search-bookmark-name {
         padding-top: 10px;
@@ -44,7 +52,8 @@
         padding: 5px;
     }
 }
-.bookmark-card::-webkit-scrollbar { width: 8px; }
+.bookmark-card::-webkit-scrollbar { width: 8px; background: #fff; }
+.bookmark-card::-webkit-scrollbar-thumb { background: #c5c5c5; }
 
 #add-new-bookmark {
     .form-control {

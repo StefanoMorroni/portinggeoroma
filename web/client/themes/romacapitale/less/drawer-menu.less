@@ -29,6 +29,46 @@
 // **************
 // Layout
 // **************
+
+#logo-banner {
+    left: 52px;
+    top: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 52px;
+    width: ~"calc(100% - 52px)";
+    background-color: #8e001c;
+}
+
+@media (max-width: (@screen-md-min - 1)) {
+    #logo-image {
+        display: none;
+    }
+    
+    #logo-image-short {
+        left: 10px;
+        top: 0;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+    }
+}
+@media (min-width: @screen-md-min) {
+    #logo-image {
+        left: 10px;
+        top: 0;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #logo-image-short {
+        display: none;
+    }
+}
+
+
 #drawer-menu-button {
     .shadow;
     left: 0;

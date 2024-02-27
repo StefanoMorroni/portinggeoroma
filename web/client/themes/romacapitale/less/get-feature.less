@@ -65,10 +65,8 @@
         align-items: center;
         padding: 8px;
         margin-top: 8px;
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
+        border-top: 1px solid rgb(221, 221, 221);
+        border-bottom: 1px solid rgb(221, 221, 221);
         .coordinate-editor {
             flex: 1 1 0%;
             font-family: @font-family-monospace;
@@ -174,7 +172,7 @@
             display: flex;
             flex: 1 1 0%;
             justify-content: space-between;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             .input-group {
                 flex: 1 1 0%;
                 padding: 4px 0;
@@ -275,37 +273,37 @@
 .ms-properties-viewer {
     width: 100%;
     min-width: 100%;
-    padding: 8px;
     + .ms-properties-viewer {
         margin-top: 8px;
-        border-top-width: 1px;
-        border-top-style: solid;
     }
     &:last-child {
         padding-bottom: 8px;
     }
-    .ms-properties-viewer-title {
-        padding: 8px 4px;
-        font-size: @font-size-small;
-        font-style: italic;
-    }
-    .ms-properties-viewer-body {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        li {
-            margin-top: 4px;
-        }
-        li > div > p {
-            margin: 0;
+    thead {
+        background-color: darken(@ms2-color-background, 5%);
+        color: contrast(darken(@ms2-color-background, 5%));
+        font-size: 1.1em;
+        margin-bottom: 4px;
+        th {
+            padding: 0 4px 4px;
+            font-weight: normal;
+            word-break: break-word;
         }
     }
-    .ms-properties-viewer-key {
-        font-weight: bold;
+    tbody {
+        font-size: 1em;
     }
-    .ms-properties-viewer-key,
-    .ms-properties-viewer-value {
-        padding: 0 4px;
+    td {
+        padding: 2px 4px 0;
+        &:first-child {
+            font-weight: bold;
+        }
+        &:last-child {
+            text-align: right;
+        }
+    }
+    tr + tr {
+        border-top: 1px solid @ms2-color-shade-lighter;
     }
 }
 
@@ -336,8 +334,7 @@
     & > div + div {
         margin-top: 4px;
         padding-top: 8px;
-        border-top-width: 1px;
-        border-top-style: solid;
+        border-top: 1px solid @ms2-color-shade-lighter;
     }
 }
 
@@ -350,6 +347,8 @@
 .coordinates-text {
     flex: 1 1 0%;
     margin-left: 8px;
+    color: #333333 !important;
+    background-color: #ffffff !important;
     font-family: @font-family-monospace;
 }
 .identify-icon{

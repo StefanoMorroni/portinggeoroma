@@ -113,25 +113,47 @@
         }
     }
 
-    .navbar-home {
-        position: fixed;
-        width: 100%;
-        margin-bottom: 0;
-        z-index: 1000;
-    }
-
-    >.container {
-        +.container {
-            border-top-width: 1px;
-            border-top-style: solid;
+    @media screen and (max-width: 600px) {
+        .navbar-home {
+            position: fixed;
+            top: 150px;
+            width: 100%;
+            margin-bottom: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;
         }
+        > .container {
+            + .container {
+                border-top: 1px solid @ms2-color-shade-lighter;
+            }
 
-        &:last-child {
-            padding-top: 30px;
-            padding-bottom: 80px;
+            &:last-child {
+                padding-bottom: 80px;
+                > .row + .row {
+                    margin-top: 15px;
+                }
+            }
+        }        
+    }    
+    @media screen and (min-width: 600px) {
+        .navbar-home {
+            position: fixed;
+            top: 200px;
+            width: 100%;
+            margin-bottom: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;
+        }    
+        > .container {
+            + .container {
+                border-top: 1px solid @ms2-color-shade-lighter;
+            }
 
-            >.row+.row {
-                margin-top: 15px;
+            &:last-child {
+                padding-bottom: 80px;
+                > .row + .row {
+                    margin-top: 15px;
+                }
             }
         }
     }
@@ -144,6 +166,67 @@
     .page-maps {
         .container {
             width: 90%;
+        }
+    }
+}
+
+.page-manager {
+    @media screen and (max-width: 600px) {
+        .navbar-home {
+            position: fixed;
+            top: 150px;
+            width: 100%;
+            margin-bottom: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;
+        }
+        .Manager-Container {
+            position: fixed;
+            top: 290px;
+            width: 100%;
+            margin: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;            
+        }
+        .MapSearchBar.user-search {
+            top: -60px;
+            height: 0;
+            overflow: visible;
+        }
+        .MapSearchBar.user-search .input-group {
+            box-shadow: -1px 1px 5px 1px rgba(94,94,94,1);
+        }
+        #home-button {
+            float: right;
+        }
+    }    
+    @media screen and (min-width: 600px) {
+        .navbar-home {
+            position: fixed;
+            top: 200px;
+            width: 100%;
+            margin-bottom: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;
+        }
+        .Manager-Container {
+            position: fixed;
+            top: 400px;
+            width: 100%;
+            margin: 0;
+            z-index: 1000;
+            background-color: @ms2-color-background;            
+        }
+        .MapSearchBar.user-search {
+            top: -100px;
+            height: 0;
+            overflow: visible;
+        }
+        .MapSearchBar.user-search .input-group {
+            box-shadow: -1px 1px 5px 1px rgba(94,94,94,1);
+        }
+        #home-button {
+            float: right;
         }
     }
 }

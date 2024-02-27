@@ -68,7 +68,9 @@
     top: 0;
     right: 0;
     transform: translate(50%, -50%);
+    background: @ms2-color-background;
     padding: 0;
+    color: #8e001c;
     font-size: 12px;
     align-items: center;
     justify-content: center;
@@ -88,6 +90,8 @@
 
     > .ol-popup-content-wrapper {
         padding: 0;
+        background: @ms2-color-background;
+        color: @ms2-color-text;
         .shadow-far;
         border-radius: 0;
 
@@ -95,6 +99,7 @@
             overflow: auto;
             position: relative;
             display: flex;
+            background-color: @ms2-color-background;
             margin: 0;
         }
     }
@@ -116,12 +121,14 @@
 }
 
 .map-popup-ol:after {
+    border-top-color: @ms2-color-background;
     border-width: 13px;
     left: 50%;
     margin-left: -13px;
 }
 
 .map-popup-ol:before {
+    border-top-color: @ms2-color-shade-lighter;
     border-width: 13px;
     left: 50%;
     margin-left: -13px;
@@ -149,17 +156,16 @@
 
     .leaflet-popup-content {
         overflow: auto;
-        position: relative;
+        position: relative; 
         display: flex;
+        background-color: @ms2-color-background;
         margin: 0;
-        z-index: 10;
     }
 
     a.leaflet-popup-close-button {
         -webkit-tap-highlight-color: transparent;
         .ms-popup-close-button();
         color: transparent;
-        z-index: 10;
         &:hover {
             color: transparent;
             opacity: 0.6;
@@ -169,11 +175,9 @@
             left: 50%;
             transform: translateX(-50%);
             display: block;
+            color: @ms2-color-primary;
             .glyphicon-1-close-content();
         }
-    }
-    .leaflet-popup-tip-container {
-        overflow: unset;
     }
 }
 
@@ -242,13 +246,5 @@
     .loader-container {
         min-width: 50px;
         min-height: 50px;
-    }
-    .mapstore-annotations-info-viewer .mapstore-annotations-info-viewer-items {
-        height: auto;
-        .mapstore-annotations-info-viewer-item {
-            & > span > p, & > p {
-                margin: 0;
-            }
-        }
     }
 }
