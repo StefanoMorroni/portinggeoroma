@@ -268,6 +268,7 @@ export const getMapfishPrintSpecification = (rawSpec, state) => {
             }
         ],
         "legends": PrintUtils.getMapfishLayersSpecification(spec.layers, projectedSpec, state, 'legend'),
+		"forwardHeaders": ["Authorization"],
         ...params
     };
 };
