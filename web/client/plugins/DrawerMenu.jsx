@@ -77,10 +77,10 @@ const DrawerButton = connect(state => ({
         </Button>
         <span id="logo-banner" key="logo-banner" >
             <span id="logo-image" key="logo-image" >
-                <img src="product/assets/img/ML_3D_orizz_neg_fascia_rossa_RGB.jpg" alt="Roma Capitale" style={{ height: "50px" }} />
+                <img src="product/assets/img/ML_3D_orizz_neg_fascia_rossa_RGB.jpg" alt="Roma Capitale" style={{ height: "40px" }} />
             </span>
             <span id="logo-image-short" key="logo-image-short">
-                <img src="product/assets/img/logo_roma3.png" alt="Roma Capitale" style={{ height: "50px" }} />
+                <img src="product/assets/img/logo_roma3.png" alt="Roma Capitale" style={{ height: "40px" }} />
             </span>
         </span>
     </span>
