@@ -1,7 +1,7 @@
 .user-thumb, .group-thumb {
     max-width: 100%;
     overflow: hidden;
-    height: 200px;
+    height: 140px;
     font-size: 12px;
     cursor: auto;
 }

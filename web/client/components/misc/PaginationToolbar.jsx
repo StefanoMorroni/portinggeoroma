@@ -52,10 +52,10 @@ class PaginationToolbar extends React.Component {
         }
         return (
             <Row className="pagination-toolbar">
-                <Col xs={12} className="text-center">
-                    {this.renderLoading()}
+                <Col xs={6} className="text-center">
+                    <h3>{this.props.loading ? <Message msgId="loading"/> : msg}</h3>
                 </Col>
-                <Col xs={12} className="text-center">
+                <Col xs={6} className="text-center">
                     <Pagination
                         prev next first last ellipsis boundaryLinks
                         bsSize={this.props.bsSize}
@@ -63,9 +63,6 @@ class PaginationToolbar extends React.Component {
                         maxButtons={this.props.maxButtons}
                         activePage={page + 1}
                         onSelect={this.onSelect} />
-                </Col>
-                <Col xs={12}>
-                    <h5>{this.props.loading ? <Message msgId="loading"/> : msg}</h5>
                 </Col>
             </Row>
         );
