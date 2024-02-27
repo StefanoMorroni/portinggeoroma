@@ -36,7 +36,8 @@ class Cookie extends React.Component {
         onMoreDetails: PropTypes.func,
         onSetCookieVisibility: PropTypes.func,
         seeMore: PropTypes.bool,
-        show: PropTypes.bool
+        show: PropTypes.bool,
+        claim: PropTypes.string
     };
     static contextTypes = {
         messages: PropTypes.object
@@ -46,7 +47,8 @@ class Cookie extends React.Component {
         onMoreDetails: () => {},
         onSetCookieVisibility: () => {},
         seeMore: false,
-        show: false
+        show: false,
+        claim: "<span/>"
     };
 
     renderAcceptButton = () => {
@@ -64,11 +66,11 @@ class Cookie extends React.Component {
         return this.props.externalCookieUrl ?
             (
                 <a style={{cursor: "pointer"}}
-                    id="accept-cookie"
+                    id="cookie-moredetails-div"
                     href={this.props.externalCookieUrl}>
                     <Button
                         className="cookie-button"
-                        id="decline-cookie"
+                        id="cookie-moredetails"
                         bsStyle="primary" >
                         <Message msgId="cookie.moreDetailsButton"/>
                     </Button>
@@ -77,7 +79,7 @@ class Cookie extends React.Component {
                 <Button
                     onClick={() => this.moreDetails()}
                     className="cookie-button"
-                    id="decline-cookie"
+                    id="cookie-moredetails"
                     bsStyle="primary" >
                     <Message msgId="cookie.moreDetailsButton"/>
                 </Button>
@@ -87,7 +89,7 @@ class Cookie extends React.Component {
         return (<a href={this.props.declineUrl} target="_self" style={{cursor: "pointer"}}>
             <Button
                 className="cookie-button"
-                id="decline-cookie"
+                id="cookie-leave"
                 bsStyle="primary" >
                 <Message msgId="cookie.leave"/>
             </Button>
@@ -96,14 +98,18 @@ class Cookie extends React.Component {
     render() {
         return this.props.show ? (
             <div className={this.props.seeMore ? "mapstore-cookie-panel see-more" : "mapstore-cookie-panel not-see-more"}>
-                <div role="header" className="cookie-header" style={{height: this.props.seeMore ? "44px" : "0px"}}>
-                    {this.props.seeMore ? <Glyphicon className="cookie-close-btn" glyph="1-close" onClick={() => this.props.onMoreDetails(false)}/> : null }
-                </div>
-                <div role="body" className="cookie-body-container">
+                {this.props.seeMore ?
+                    <div role="heading" aria-level="1" className="cookie-header" style={{ height: this.props.seeMore ? "44px" : "0px" }}>
+                        <Glyphicon glyph="1-close" onClick={() => this.props.onMoreDetails(false)} />
+                    </div>
+                    :
+                    null
+                }
+                <div role="region" className="cookie-body-container">
                     {!this.props.externalCookieUrl && this.props.seeMore ? (
                         <MoreDetails html={this.props.html}/>
                     ) : (<div className="cookie-message">
-                        <Message msgId="cookie.info"/>
+                        <span dangerouslySetInnerHTML={{__html: this.props?.claim}} />
                     </div>) }
                     <br/>
                     {!this.props.seeMore ?
