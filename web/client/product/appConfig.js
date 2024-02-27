@@ -68,6 +68,10 @@ export default {
         path: "/rules-manager",
         component: require('./pages/RulesManager').default
     }, {
+        name: "caricamentodati",
+        path: "/caricamentodati",
+        component: require('./pages/CaricamentoDati').default
+    }, {
         name: "geostory",
         path: "/geostory/:gid",
         component: require('./pages/GeoStory').default

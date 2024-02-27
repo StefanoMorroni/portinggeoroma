@@ -54,7 +54,13 @@ class ManagerMenu extends React.Component {
 
     static defaultProps = {
         id: "mapstore-manager-menu",
-        entries: [{
+        entries: [
+        {
+            "msgId": "caricamentodati.title",
+            "glyph": "upload",
+            "path": "/caricamentodati"
+        },
+        {
             "msgId": "users.title",
             "glyph": "1-group-mod",
             "path": "/manager/usermanager"
@@ -90,14 +96,39 @@ class ManagerMenu extends React.Component {
         enableContextManager: false
     };
 
+    hasGroups = (name) => {
+        let nameUppercase = name.toUpperCase();
+        let retValue = false;
+        if (this.props?.groups?.group) {
+            retValue = this.props?.groups?.group.filter(item => item?.groupName?.toUpperCase().startsWith(nameUppercase)).length > 0;
+        } else {
+            retValue = this.props?.groups.filter(item => item?.groupName?.toUpperCase().startsWith(nameUppercase)).length > 0;
+        }
+        console.log("[STF] ManagerMenu.hasGroups()", nameUppercase, retValue);
+        return retValue;
+    }
+
     getTools = () => {
-        return [{element:
-            <span key="burger-menu-title">{this.props.title}</span>},
+        return [
+            //{element:<span key="burger-menu-title">{this.props.title}</span>},
         ...this.props.entries
-            .filter(e => this.props.enableRulesManager || e.path !== "/rules-manager")
-            .filter(e => this.props.enableImporter || e.path !== "/importer")
-            .filter(e => this.props.enableContextManager || e.path !== "/context-manager")
-            .sort((a, b) => a.position - b.position).map((entry) => {
+            .filter(e => {
+                if (this.props.role === "ADMIN" && e.path === "/manager/usermanager") {
+                    return true
+                } else if (this.props.role === "ADMIN" && e.path === "/rules-manager" && this.props.enableRulesManager) {
+                    return true
+                } else if (this.props.role === "ADMIN" && e.path === "/importer" && this.props.enableImporter) {
+                    return true
+                } else if (this.props.role === "ADMIN" && e.path === "/context-manager" && this.props.enableContextManager) {
+                    return true
+                } else if ((this.hasGroups("EDIT_") || this.hasGroups("ADMIN_")) && e.path === "/caricamentodati") {
+                    return true
+                }
+                return false;
+            }) 
+            .sort((a, b) => a.position - b.position)
+            .map((entry) => {
+                console.log("[STF] ManagerMenu.getTools() entry:", JSON.stringify(entry));
                 return {
                     action: (context) => {
                         context.router.history.push(entry.path);
@@ -119,21 +150,21 @@ class ManagerMenu extends React.Component {
     };
 
     render() {
-        if (this.props.role === "ADMIN") {
-            return (
-                <ToolsContainer id={this.props.id} className="square-button"
-                    container={Container}
-                    toolStyle="primary"
-                    activeStyle="default"
-                    stateSelector="burgermenu"
-                    eventSelector="onSelect"
-                    tool={MenuItem}
-                    tools={this.getTools()}
-                    panelStyle={this.props.panelStyle}
-                    panelClassName={this.props.panelClassName}
-                />);
-        }
-        return null;
+        const tools = this.getTools();
+        if (tools.length < 1) return null;
+        return (
+            <ToolsContainer id={this.props.id} className="square-button"
+                container={Container}
+                mapType={this.props.mapType}
+                toolStyle="primary"
+                activeStyle="default"
+                stateSelector="burgermenu"
+                eventSelector="onSelect"
+                tool={MenuItem}
+                tools={tools}
+                panelStyle={this.props.panelStyle}
+                panelClassName={this.props.panelClassName}
+            />);
     }
 }
 
@@ -152,7 +183,9 @@ export default {
         enableRulesManager: isPageConfigured(RULE_MANAGER_ID)(state),
         enableImporter: isPageConfigured(IMPORTER_ID)(state),
         controls: state.controls,
-        role: state.security && state.security.user && state.security.user.role
+        security: state.security,
+        role: state?.security?.user?.role,
+        groups: state?.security?.user?.groups || []
     }), {
         itemSelected
     })(ManagerMenu), {
