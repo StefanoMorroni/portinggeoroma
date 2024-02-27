@@ -4121,6 +4121,13 @@
             "validLayer": "This layer is valid and can be used in this process",
             "invalidLayer": "This layer does not support the needed wps processes \ngeo:buffer\ngs:IntersectionFeatureCollection\ngs:CollectGeometries\n\nor it is a Raster layer"
           }
+        },
+        "livello2": {
+            "title": "Scheda di secondo livello"
+        },
+        "caricamentodati": {
+            "title": "Caricamento Dati",
+            "uploadlabel":"Trascina qui i file o fai click per selezionare i file da importare."
         }
     }
 }
