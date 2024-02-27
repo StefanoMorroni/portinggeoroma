@@ -62,18 +62,28 @@ const DrawerButton = connect(state => ({
     tooltipId = 'toc.drawerButton',
     tooltipPosition = 'bottom'
 }) =>
-    <Button
-        id={id}
-        style={menuButtonStyle}
-        bsStyle={buttonStyle}
-        key="menu-button"
-        className={buttonClassName}
-        onClick={toggleMenu}
-        disabled={disabled}
-        tooltipId={tooltipId}
-        tooltipPosition={tooltipPosition}>
-        <Glyphicon glyph={glyph}/>
-    </Button>
+    <span>
+        <Button
+            id={id}
+            style={menuButtonStyle}
+            bsStyle={buttonStyle}
+            key="menu-button"
+            className={buttonClassName}
+            onClick={toggleMenu}
+            disabled={disabled}
+            tooltipId={tooltipId}
+            tooltipPosition={tooltipPosition}>
+            <Glyphicon glyph={glyph}/>
+        </Button>
+        <span id="logo-banner" key="logo-banner" >
+            <span id="logo-image" key="logo-image" >
+                <img src="product/assets/img/ML_3D_orizz_neg_fascia_rossa_RGB.jpg" alt="Roma Capitale" style={{ height: "50px" }} />
+            </span>
+            <span id="logo-image-short" key="logo-image-short">
+                <img src="product/assets/img/logo_roma3.png" alt="Roma Capitale" style={{ height: "50px" }} />
+            </span>
+        </span>
+    </span>
 );
 
 /**
