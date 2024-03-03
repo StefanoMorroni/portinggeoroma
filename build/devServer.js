@@ -10,6 +10,20 @@ var domain = matches && matches[1];
 // to proxy requests to the backend.
 const devServer = {
     proxy: {
+        '/configs/localConfig.json': {
+            target: MAPSTORE_BACKEND_URL,
+            secure: false,
+            headers: {
+                host: domain
+            }
+        },
+        '/extensions/extensions.json': {
+            target: MAPSTORE_BACKEND_URL,
+            secure: false,
+            headers: {
+                host: domain
+            }
+        },
         '/rest': {
             target: MAPSTORE_BACKEND_URL,
             secure: false,
