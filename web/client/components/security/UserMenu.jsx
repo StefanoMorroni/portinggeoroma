@@ -60,7 +60,7 @@ class UserMenu extends React.Component {
         user: {
         },
         tooltipPosition: 'bottom',
-        showAccountInfo: true,
+        showAccountInfo: false,
         showPasswordChange: false,
         showLogout: true,
         onLogout: () => {},
