@@ -48,11 +48,10 @@ export const refreshTokenEpic = (action$, store) =>
                 .map(
                     (response) => sessionValid(response, AuthenticationAPI.authProviderName)
                 )
-                // try to refresh the token if the session is still valid
-                .catch(() => Rx.Observable.of(refreshAccessToken())) : Rx.Observable.empty()
+                .catch(() => Rx.Observable.of(logout(null))) : Rx.Observable.empty()
         )
             .merge(Rx.Observable
-                .interval(ConfigUtils.getConfigProp("tokenRefreshInterval") ?? 30000 /* ms */)
+                .interval(30000 /* ms */)
                 .filter(() => get(store.getState(), "security.user"))
                 .mapTo(refreshAccessToken()))
         );
