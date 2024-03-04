@@ -11,7 +11,7 @@
  */
 import AuthenticationAPI from '../api/GeoStoreDAO';
 
-import {getToken, getRefreshToken} from '../utils/SecurityUtils';
+import {getToken, getRefreshToken, getIdToken} from '../utils/SecurityUtils';
 import { loadMaps } from './maps';
 import ConfigUtils from '../utils/ConfigUtils';
 import {encodeUTF8} from '../utils/EncodeUtils';
@@ -86,6 +86,7 @@ export function loginPromptClosed() {
 
 export function logoutWithReload() {
     return (dispatch, getState) => {
+        window.auth.logout(getToken(), getRefreshToken(), getIdToken());
         dispatch(logout(null));
         dispatch(loadMaps(false, getState().maps && getState().maps.searchText || ConfigUtils.getDefaults().initialMapFilter || "*"));
     };
@@ -164,14 +165,9 @@ export function refreshAccessToken() {
         const refreshToken = getRefreshToken();
         const userinfo = getState().security.userinfo | 0;
         const accessTokenDecoded = parseJwt(accessToken);
-        let expires = getState()?.localConfig?.sso?.expires;
-        try {
-            expires = (accessTokenDecoded?.expires_in)-30000;
-        } catch(e) {
-        }
-        if (userinfo < expires) {
-            dispatch(userInfoSuccess(30000));
-        } else {
+        const currentseconds = Math.floor(Date.now() / 1000);
+        console.log("[STF] exp:", accessTokenDecoded?.exp, "currentseconds", currentseconds);
+        if (currentseconds > (accessTokenDecoded.exp - 60)) {
             window.auth.refreshToken(accessToken, refreshToken)
                 .then((response) => {
                     console.log("[STF] refreshToken completata con successo ", userinfo, response.data);

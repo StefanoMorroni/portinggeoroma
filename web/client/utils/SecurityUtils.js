@@ -60,6 +60,13 @@ export function getRefreshToken() {
 }
 
 /**
+ * Returns the current id_token value.
+ */
+export function getIdToken() {
+    return getSecurityInfo()?.id_token;
+}
+
+/**
  * Return the user attributes as an array. If the user is undefined or
  * doesn't have any attributes an empty array is returned.
  */
